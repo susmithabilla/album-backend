@@ -74,3 +74,42 @@ exports.update = (req, res) => {
       });
     });
 };
+// Delete a Tutorial with the specified id in the request
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  Album.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Album was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Album with id=${id}. Maybe Album was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Album with id=" + id
+      });
+    });
+};
+// Delete all Tutorials from the database.
+exports.deleteAll = (req, res) => {
+  Album.destroy({
+    where: {},
+    truncate: false
+  })
+    .then(nums => {
+      res.send({ message: `${nums} Albums were deleted successfully!` });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all albums."
+      });
+    });
+};

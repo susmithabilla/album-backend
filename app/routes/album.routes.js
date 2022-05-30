@@ -8,5 +8,8 @@ module.exports = app => {
   router.get("/", albums.findAll);
    // Update album with id
    router.put("/:id", albums.update);
+   router.delete("/:id", albums.delete);
+  // Delete all albums
+  router.delete("/", albums.deleteAll);
   app.use('/api/albums+', router);
 };
