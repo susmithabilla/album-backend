@@ -7,8 +7,11 @@ module.exports = app => {
   
   // Retrieve a single track with id
   router.get("/:albumId/tracks/:id", tracks.findOne);
-   // Retrieve all Lessons for a Tutorial
+   // Retrieve all tracks for a album
    router.get("/:albumId/tracks/", tracks.findAll);
- 
+ // Delete a track with given id
+ router.delete("/:albumId/tracks/:id", tracks.delete);
+ // Delete all tracks
+ router.delete("/:albumId/tracks/:id", tracks.deleteAll);
   app.use('/api/albums', router);
 };
