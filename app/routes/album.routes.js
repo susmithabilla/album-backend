@@ -6,5 +6,7 @@ module.exports = app => {
   router.post("/",upload.single("file"), albums.create);
   // Retrieve all albums
   router.get("/", albums.findAll);
+   // Update album with id
+   router.put("/:id", albums.update);
   app.use('/api/albums+', router);
 };

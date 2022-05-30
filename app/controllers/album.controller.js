@@ -51,3 +51,26 @@ exports.findAll = (req, res) => {
       });
     });
 };
+// Update a Album by the id in the request
+exports.update = (req, res) => {
+  const id = req.params.id;
+  Album.update(req.body, {
+    where: { id: id }
+  })
+    .then(result => {
+      if (result == 1) {
+        res.send({
+          message: "Album record updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Error occured while updating the Album with id=${id}`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error occured while updating Album with id=" + id
+      });
+    });
+};
