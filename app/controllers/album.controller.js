@@ -113,3 +113,25 @@ exports.deleteAll = (req, res) => {
       });
     });
 };
+
+// Find a single Album with an id
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+  Album.findByPk(id)
+    .then(result => {
+    
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(404).send({
+          message: `Error occured while finding Album with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send({
+        message: "Error occured while retrieving Album with id=" + id
+      });
+    });
+};
