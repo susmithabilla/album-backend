@@ -103,3 +103,26 @@ exports.deleteAll = (req, res) => {
       });
     });
 };
+// Update a track by the id in the request
+exports.update = (req, res) => {
+  const id = req.params.id;
+  Track.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "track updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update track with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating track with id=" + id
+      });
+    });
+};

@@ -14,4 +14,6 @@ module.exports = app => {
  // Delete all tracks
  router.delete("/:albumId/tracks/:id", tracks.deleteAll);
   app.use('/api/albums', router);
+  // Update a track with id
+  router.put("/:albumId/tracks/:id", tracks.update);
 };
