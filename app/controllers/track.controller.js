@@ -25,7 +25,42 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Lesson."
+          err.message || " error occurred while creating the track."
+      });
+    });
+};
+
+// Find a single track with an id
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+  Track.findByPk(id)
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find track with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving track with id=" + id
+      });
+    });
+};
+// Retrieve all tracks from the database.
+exports.findAll = (req, res) => {
+  const albumId = req.params.albumId;
+  
+  Track.findAll({ where: {albumId : albumId} })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || " error occurred while retrieving tracks."
       });
     });
 };
