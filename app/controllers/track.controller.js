@@ -64,3 +64,42 @@ exports.findAll = (req, res) => {
       });
     });
 };
+// Delete a track with the specified id in the request
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  Track.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "track deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete track with id=${id}`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete track with id=" + id
+      });
+    });
+};
+// Delete all tracks 
+exports.deleteAll = (req, res) => {
+  Track.destroy({
+    where: {},
+    truncate: false
+  })
+    .then(nums => {
+      res.send({ message: `${nums} tracks deleted successfully!` });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || " error occurred while removing all tracks."
+      });
+    });
+};
