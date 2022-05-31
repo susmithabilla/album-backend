@@ -11,7 +11,8 @@ module.exports = app => {
    router.delete("/:id", albums.delete);
   // Delete all albums
   router.delete("/", albums.deleteAll);
-  app.use('/api/albums+', router);
+ 
    // Retrieve a single album with id
    router.get("/:id", albums.findOne);
+   app.use('/api/albums+', router);
 };
