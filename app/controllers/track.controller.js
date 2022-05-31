@@ -16,6 +16,7 @@ exports.create = (req, res) => {
     albumId: req.params.albumId,
     title: req.body.title,
     description: req.body.description,
+    duration:req.body.duration
   };
   // Save track in the database
   Track.create(track)

@@ -6,8 +6,8 @@ module.exports = (sequelize, Sequelize) => {
     description: {
       type: Sequelize.STRING
     },
-    published: {
-      type: Sequelize.BOOLEAN
+    duration: {
+      type: Sequelize.STRING
     }
   });
   return Track;

@@ -17,6 +17,7 @@ exports.create = (req, res) => {
     name: req.query.name,
     artist: req.query.artist,
     description: req.query.description,
+    publishedYear: req.query.publishedYear,
     data:req.file != undefined ? fs.readFileSync(
       __basedir + "/resources/images/" + req.file.filename): null,
     fileType:req.file != undefined ? req.file.mimetype: null,
