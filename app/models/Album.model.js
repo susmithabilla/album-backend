@@ -17,6 +17,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     data: {
       type: Sequelize.BLOB("long"),
+    },
+    publishedYear: {
+      type: Sequelize.STRING
     }
   });
   return Album;
