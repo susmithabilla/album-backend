@@ -12,4 +12,8 @@ module.exports = app => {
     // Delete all artists
     router.delete("/", artists.deleteAll);
     app.use('/api/artists+', router);
+     // Update a artist with id
+     router.put("/:id",upload.single("file"), artists.update);
+     // Retrieve all artists
+     router.get("/", artists.findAll);
   };

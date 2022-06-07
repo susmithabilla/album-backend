@@ -2,7 +2,7 @@ const db = require("../models");
 const Artist = db.artists;
 const Op = db.Sequelize.Op;
 const fs = require("fs");
-// Create and Save a new Tutorial
+// Create and Save a new artist
 exports.create = (req, res) => {
     // Validate request
     if (!req.query.name) {
@@ -11,7 +11,7 @@ exports.create = (req, res) => {
       });
       return;
     }
-    // Create a Tutorial
+    // Create a artist
     const artist = {
       name: req.query.name,
       description: req.query.description,
@@ -21,7 +21,7 @@ exports.create = (req, res) => {
         __basedir + "/resources/static/assets/uploads/" + req.file.filename): null
   
     };
-    // Save Tutorial in the database
+    // Save artist in the database
     Artist.create(artist)
       .then(data => {
         res.send(data);
@@ -34,7 +34,7 @@ exports.create = (req, res) => {
         });
       });
   };
-   // Find a single Tutorial with an id
+   // Find a single artist with an id
    exports.findOne = (req, res) => {
     const id = req.params.id;
     Artist.findByPk(id)
@@ -56,7 +56,7 @@ exports.create = (req, res) => {
       });
   };
  
-   // Delete all Tutorials from the database.
+   // Delete all artists from the database.
    exports.deleteAll = (req, res) => {
     Artist.destroy({
       where: {},
@@ -73,7 +73,7 @@ exports.create = (req, res) => {
       });
   };
  
-  // Delete a Tutorial with the specified id in the request
+  // Delete a artist with the specified id in the request
   exports.delete = (req, res) => {
     const id = req.params.id;
     Artist.destroy({
@@ -96,4 +96,41 @@ exports.create = (req, res) => {
         });
       });
   };
+  exports.findAll = (req, res) => {
+    const name = req.query.name;
+    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    Artist.findAll({ where: condition })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || " error occurred while retrieving albums."
+        });
+      });
+  };
  
+  // Update a artist by the id in the request
+  exports.update = (req, res) => {
+    const id = req.params.id;
+    Artist.update(req.body, {
+      where: { id: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "Artist was updated successfully."
+          });
+        } else {
+          res.send({
+            message: `Cannot update Artist with id=${id}. Maybe Artist was not found or req.body is empty!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating Artist with id=" + id
+        });
+      });
+  };
