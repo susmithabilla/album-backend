@@ -14,5 +14,6 @@ module.exports = app => {
  
    // Retrieve a single album with id
    router.get("/:id", albums.findOne);
+   router.get("/:artistId/byartist/", albums.getAllForArtist);
    app.use('/api/albums+', router);
 };
