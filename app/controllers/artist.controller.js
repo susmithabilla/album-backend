@@ -18,7 +18,7 @@ exports.create = (req, res) => {
       fileType:req.file != undefined ? req.file.mimetype: null,
       fileName:req.file != undefined ? req.file.originalname: null,
       data:req.file != undefined ? fs.readFileSync(
-        __basedir + "/resources/static/assets/uploads/" + req.file.filename): null
+        __basedir + "/resources/images/" + req.file.filename): null
   
     };
     // Save artist in the database
