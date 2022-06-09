@@ -13,7 +13,10 @@ module.exports = app => {
  router.delete("/:albumId/tracks/:id", tracks.delete);
  // Delete all tracks
  router.delete("/:albumId/tracks/:id", tracks.deleteAll);
-  app.use('/api/albums', router);
+ 
   // Update a track with id
   router.put("/:albumId/tracks/:id", tracks.update);
+  // Retrieve all tracks
+  router.get("/0/allTracks", tracks.findAllTracks);
+  app.use('/api/albums+', router);
 };
