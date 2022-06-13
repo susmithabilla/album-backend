@@ -130,8 +130,8 @@ exports.update = (req, res) => {
 };
 // Retrieve all Albums from the database.
 exports.findAllTracks = (req, res) => {
-  const name = req.query.name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  const title = req.query.title;
+  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   Track.findAll({ where: condition })
     .then(result => {
       res.send(result);
