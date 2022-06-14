@@ -16,7 +16,8 @@ exports.create = (req, res) => {
     albumId: req.params.albumId,
     title: req.body.title,
     description: req.body.description,
-    duration:req.body.duration
+    duration:req.body.duration,
+    albumName:req.body.albumName
   };
   // Save track in the database
   Track.create(track)
@@ -50,7 +51,7 @@ exports.findOne = (req, res) => {
       });
     });
 };
-// Retrieve all tracks from the database.
+// Retrieve all tracks with album id from the database.
 exports.findAll = (req, res) => {
   const albumId = req.params.albumId;
   
@@ -124,6 +125,21 @@ exports.update = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Error updating track with id=" + id
+      });
+    });
+};
+// Retrieve all Albums from the database.
+exports.findAllTracks = (req, res) => {
+  const title = req.query.title;
+  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  Track.findAll({ where: condition })
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "error occurred while getting tracks."
       });
     });
 };

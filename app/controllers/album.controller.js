@@ -21,7 +21,8 @@ exports.create = (req, res) => {
     data:req.file != undefined ? fs.readFileSync(
       __basedir + "/resources/images/" + req.file.filename): null,
     fileType:req.file != undefined ? req.file.mimetype: null,
-    fileName:req.file != undefined ? req.file.originalname: null
+    fileName:req.file != undefined ? req.file.originalname: null,
+    artistId: req.query.artistId !=undefined ? parseInt(req.query.artistId) : null
 
   };
   // Save Album in the database
@@ -133,6 +134,20 @@ exports.findOne = (req, res) => {
       console.log(err);
       res.status(500).send({
         message: "Error occured while retrieving Album with id=" + id
+      });
+    });
+};
+exports.getAllForArtist = (req, res) => {
+  const artistId = req.params.artistId;
+  
+  Album.findAll({ where: {artistId : artistId} })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || " error occurred while retrieving albums."
       });
     });
 };

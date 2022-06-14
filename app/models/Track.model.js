@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     duration: {
       type: Sequelize.STRING
+    },
+    albumName: {
+      type: Sequelize.STRING
     }
   });
   return Track;
